@@ -19,7 +19,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 app.get('/', function (req, res) {
-    res.render('index', { error: null,resultado : null});
+    let query = "select * from Tesis";    
+    con.query(query , function (err, result, fields) {
+        if (err) throw err;
+        //
+        if(result.length>0){
+            res.render('home', { error: null,tesis : result});
+        }else{
+            res.render('home', { error: 'No hay tesis para mostrar',tesis : [] });
+        }        
+    });
     
 })
 
@@ -91,8 +100,18 @@ app.get('/register', function (req, res) {
     res.render('register', { error: null,resultado : null});
 })
 app.post('/register', function (req, res) {
-    res.render('register', { error: null,resultado : null});
-})
+    let user = req.body;    
+    let query = "INSERT INTO Usuario (idUsuario, rut, nombre, apellido, correo, clave) VALUES ("+Math.round(Math.random()*100)+", '"+user.rut+"', '"+user.nombre+"', '"+user.apellido+"', '"+user.correo+"', '"+user.clave+"') ";
+    console.log(query);
+    console.log(user);
+        console.log(query);
+        con.query(query , function (err, result, fields) {
+        if (err)  res.render('login', { error: 'no',user : req.body});
+        res.redirect("/");
+        
+        
+      });
+})   
 
 app.get("/users",function (req,res){
     let query = " SELECT * from Usuario ";
