@@ -25,6 +25,7 @@ var User = {
     clave : null
 };
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
 app.get('/', function (req, res) {    
     if(validar()){
         let query = "select * from Tesis";    
@@ -61,20 +62,9 @@ app.post('/mandar', function (req, res) {
     res.render("mandarCorreo",{resultado:"se agendó con exito"}); 
 })
 */
-app.get('/home', function (req, res) {
-    if(validar()){
-        res.render('home', { error: 'tuve un error!',resultado : null});
-        con.query("select * from tesis" , function (err, result, fields) {
-            if (err) throw err;
-            console.log(result);
-            res.render("home",{tesis:result});            
-        });
-    }else{
-        res.redirect("/login");
-    }
-})
 
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/login', function (req, res) {
     res.render('login', { error: null,user : null});
@@ -97,7 +87,7 @@ app.post('/login', function (req, res) {
     
 })
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////
 app.get('/register', function (req, res) {
     res.render('register', { error: null,resultado : null});
 })
@@ -112,7 +102,7 @@ app.post('/register', function (req, res) {
         
       });
 })   
-
+///////////////////////////////////////////////////////////////////////////////////////////////////
 app.get("/users",function (req,res){    
     if(validar()){
         let query = " SELECT * from Usuario ";
@@ -156,7 +146,7 @@ app.post("/users/replace",function (req,res){
         res.redirect("/login");
     }    
 })
-
+///////////////////////////////////////////////////////////////////////////////////////////////////
 app.get('/tesis/:id', function(req, res) {
     if(validar()){
         let query = "SELECT * FROM Tesis where idTesis = "+req.params.id;
@@ -175,11 +165,58 @@ app.get('/tesis/:id', function(req, res) {
     }
   });
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+app.get('/fileadd', function (req, res) {
+    if(validar()){
+        res.render('fileadd', { error: null,resultado : null});
+    }else{
+        res.redirect("/login");
+    }
+    
+})
+app.post("/fileadd",function (req,res){
+    if(validar()){    
+        let tesis = req.body; 
+        let query = "INSERT INTO tesis (idTesis, titulo, descripcion, codigo) VALUES ("+Math.round(Math.random()*100)+", '"+tesis.titulo+"', '"+tesis.descripcion+"', '"+tesis.codigo+"') ";
+        console.log(query);
+        console.log(tesis);
+            console.log(query);
+            con.query(query , function (err, result, fields) {
+            if (err)  res.render('fileadd', { error: 'no',tesis : req.body});
+            res.redirect("/");
+        });
+    }else{
+        res.redirect("/login");
+    }
+});
+///////////////////////////////////////////////////////////////////////////////////////////////////
+app.get('/evaluacion', function (req, res) {
+    
+    if(validar()){    
+        res.render('evaluacion', { error: null,resultado : null});
+    }else{
+        res.redirect("/login");
+    }
+})
+app.post('/evaluacion', function (req, res) {
+    if(validar()){    
+        let eval = req.body;    
+        let query = "INSERT INTO evaluacion (nota, comentarios) VALUES ('"+eval.nota+"', '"+eval.comentarios+"') ";    
+            con.query(query , function (err, result, fields) {
+            if (err) throw err;
+            res.redirect("/");                
+        });
+    }else{
+        res.redirect("/login");
+    }
+})
+///////////////////////////////////////////////////////////////////////////////////////////////////
 app.get("/salir",function(req,res){
     salir();
     res.redirect("/login");
 });
-
+///////////////////////////////////////////////////////////////////////////////////////////////////
 // abrir el servidor con el puerto de la variable puerto
 let puerto = 4000;
 app.listen(puerto, function () {
