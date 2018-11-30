@@ -7,7 +7,7 @@ var con = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "789123",
-  database: "bibliotesis"
+  database: "bTesis"
 });
 con.connect(function(err) {
   if (err) throw err;  
@@ -32,39 +32,17 @@ app.get('/', function (req, res) {
         con.query(query , function (err, result, fields) {
             if (err) throw err;
             //
+            console.log(result);
             if(result.length>0){
                 res.render('home', { error: null,tesis : result});
             }else{
-                res.render('home', { error: 'No hay tesis para mostrar',tesis : [] });
+                res.render('home', { error: ' No hay tesis para mostrar',tesis : [] });
             }        
         });
     }else{
         res.redirect("/login");
     }
 })
-
-
-/*
-app.get('/mandar', function (req, res) {    
-    res.render("mandarCorreo",{resultado:null}); 
-})
-app.post('/mandar', function (req, res) {
-    data = req.body;
-    cuando = data.cuando;
-    to = data.para;
-    mensaje = data.mensaje;
-    subject = data.subject;
-    console.log(data);
-    (async function() {
-        await agenda.start();
-        await agenda.schedule(cuando, 'correo desde gmail', {subject:subject,para: to , texto:mensaje});        
-      })();
-    res.render("mandarCorreo",{resultado:"se agendó con exito"}); 
-})
-*/
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/login', function (req, res) {
     res.render('login', { error: null,user : null});
@@ -136,7 +114,13 @@ app.post("/users/delete",function (req,res){
 app.post("/users/replace",function (req,res){
     if(validar()){
         let user = req.body; 
-        let query = "REPLACE INTO Usuario (idUsuario, rut, nombre, apellido, correo, clave) VALUES ("+user.id+", '"+user.rut+"', '"+user.nombre+"', '"+user.apellido+"', '"+user.correo+"', '"+user.correo+"') ";
+        let query = "";
+        if(user.id == undefined){
+            query = "REPLACE INTO Usuario ( rut, nombre, apellido, correo, clave) VALUES ('"+user.rut+"', '"+user.nombre+"', '"+user.apellido+"', '"+user.correo+"', '"+user.clave+"') ";        
+        }else{
+            query = "REPLACE INTO Usuario (idUsuario, rut, nombre, apellido, correo, clave) VALUES ("+user.id+", '"+user.rut+"', '"+user.nombre+"', '"+user.apellido+"', '"+user.correo+"', '"+user.clave+"') ";
+        }
+        
         console.log(query);
         con.query(query , function (err, result, fields) {
             if (err) throw err;
@@ -178,12 +162,10 @@ app.get('/fileadd', function (req, res) {
 app.post("/fileadd",function (req,res){
     if(validar()){    
         let tesis = req.body; 
-        let query = "INSERT INTO tesis (idTesis, titulo, descripcion, codigo) VALUES ("+Math.round(Math.random()*100)+", '"+tesis.titulo+"', '"+tesis.descripcion+"', '"+tesis.codigo+"') ";
-        console.log(query);
-        console.log(tesis);
-            console.log(query);
-            con.query(query , function (err, result, fields) {
-            if (err)  res.render('fileadd', { error: 'no',tesis : req.body});
+        let query = "INSERT INTO tesis ( titulo, descripcion, codigo) VALUES ('"+tesis.titulo+"', '"+tesis.descripcion+"', '"+tesis.codigo+"') ";        
+        con.query(query , function (err, result, fields) {
+            console.log(err)
+            if (err)  res.redirect("/");
             res.redirect("/");
         });
     }else{
@@ -202,7 +184,7 @@ app.get('/evaluacion', function (req, res) {
 app.post('/evaluacion', function (req, res) {
     if(validar()){    
         let eval = req.body;    
-        let query = "INSERT INTO evaluacion (nota, comentarios) VALUES ('"+eval.nota+"', '"+eval.comentarios+"') ";    
+        query = "INSERT INTO evaluacion (nota, comentarios) VALUES ('"+eval.nota+"', '"+eval.comentarios+"') ";    
             con.query(query , function (err, result, fields) {
             if (err) throw err;
             res.redirect("/");                
@@ -212,6 +194,56 @@ app.post('/evaluacion', function (req, res) {
     }
 })
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+app.get("/comision",function (req,res){    
+    if(validar()){
+        let query = " SELECT * from comision ";
+        con.query(query , function (err, result, fields) {
+            if (err) throw err;
+            //
+            if(result.length>0){
+                res.render('comisionControl', { error: null,comision : result});
+            }else{
+                res.render('comisionControl', { error: 'fallo el sql',comision : [] });
+            }        
+        });
+    }else{
+        res.redirect("/login");
+    }
+})
+app.post("/comision/delete",function (req,res){
+    if(validar()){
+        let comision = req.body; 
+        let query = " DELETE FROM Comision where idComision = "+comision.id;
+        console.log(query);
+        con.query(query , function (err, result, fields) {
+            if (err) throw err;
+            res.redirect("/comision");
+        });        
+    }else{
+        res.redirect("/login");
+    }
+})
+app.post("/comision/replace",function (req,res){
+    if(validar()){
+        let comision = req.body;
+        let query = "";
+        if(comision.id == undefined){
+            query = "REPLACE INTO comision ( nombre, descripcion) VALUES ('"+comision.nombre+"', '"+comision.descripcion+"') ";
+        }else{
+            query = "REPLACE INTO comision (idcomision, nombre, descripcion) VALUES ("+comision.id+", '"+comision.nombre+"', '"+comision.descripcion+"') ";
+        }
+        
+        console.log(query);
+        con.query(query , function (err, result, fields) {
+            if (err) throw err;
+            res.redirect("/comision");
+        });
+    }else{
+        res.redirect("/login");
+    }    
+})
+
+
 app.get("/salir",function(req,res){
     salir();
     res.redirect("/login");

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,7 +49,6 @@
     .form-all{
         margin:0px auto;
         padding-top:0px;
-        padding-left: 100px;
         width:590px;
         color:#555 !important;
         font-family:"Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, sans-serif;
@@ -269,38 +267,79 @@ JotForm.paymentExtrasOnTheFly([null,null,null,{"name":"clickTo","qid":"3","text"
         <div class="form-header-group ">
           <div class="header-text httal htvam">
             <h2 id="header_3" class="form-header" data-component="header"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
-              DocumentoTesis
+              Crear Equipo
             </font></font></h2>
           </div>
         </div>
       </li>
 
 
-      
+      <li class="form-line " data-type="control_textbox" id="id_5">
+        <label class="form-label form-label-left form-label-auto" id="label_5" for="input_5"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Nombre Equipo:</font></font>
+           </font></font><span class="form-required"><font style="vertical-align: inherit;">*
+        </font></span>
+        </label>
+        <div id="cid_5" class="form-input">
+          <span class="form-sub-label-container" style="vertical-align:top">
+            <input type="text" id="input_5" name="q5_company" data-type="input-textbox" class="form-textbox" size="32" value="" placeholder=" " data-component="textbox">
+            <label class="form-sub-label" for="input_5" style="min-height:13px"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">          </font></font></label>
+          </span>
+        </div>
+      </li>
+
+      <li class="form-line" data-type="control_textarea" id="id_7">
+        <label class="form-label form-label-left form-label-auto" id="label_7" for="input_7"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+          Integrantes del Equipo:
+           </font></font><span class="form-required"><font style="vertical-align: inherit;">
+            <font style="vertical-align: inherit;">
+            *
+          </font>
+        </font></span><br><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+          
+        </font></font></label>
+        <div id="cid_7" class="form-input">
+          <textarea id="input_7" class="form-textarea" name="q7_jobDetailsdescribe7" cols="32" rows="6" data-component="textarea"></textarea>
+        </div>
+      </li>
 
 
-      <form action="/fileadd"  method="post">
-        <div class="row" style="padding-top:5%">
-          <input type="text" class="form-control col-sm-10" name="titulo" placeholder="Titulo de tesis" required>
-          <span class="fa fa-bug form-control-feedback  col-sm-2"></span>
-        </div>
-        <div class="row" style="padding-top:5%">
-          <input type="text" class="form-control col-sm-10" name="descripcion" placeholder="Describe tu Tesis" required>
-          <span class="fa fa-user form-control-feedback  col-sm-2"></span>
-        </div>
-        <div class="row" style="padding-top:5%">
-          <input type="text" class="form-control col-sm-10" name="codigo" placeholder="Ingresa el codigo de tu Tesis" required>
-          <span class="fa fa-user form-control-feedback  col-sm-2"></span>
-        </div>
-        <br> </br>
-         <div class="col-4">
-                <input value="Registrar" type="submit" class="btn btn-primary btn-block btn-flat" >
-              </div>
-          </form>
-   
-   
-         
+
+     
+      <li class="form-line jf-required" data-type="control_fileupload" id="id_8">
         
+
+
+
+        <label class="form-label form-label-left" id="label_8" for="input_8"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+          Seleccione comisión perteneciente
+           </font></font><span class="form-required"><font style="vertical-align: inherit;">
+            <font style="vertical-align: inherit;">
+            *
+          </font>
+        </font></span>
+        </label>
+        
+
+                                    <select>
+                              <?php if ($key->rol == 1) {
+                                ?>
+                                <option value="1">Comisión n1</option> 
+                                <?php
+                              }else{
+                                ?>
+                                <option value="2">Comisión n2</option>
+                                <?php
+                              }
+                              else{
+                                ?>
+                                <option value="3">Comisión n3</option>
+                                <?php
+                              }
+                              ?>
+                              
+                            </select>
+
+
       </li>
 
 
@@ -308,7 +347,18 @@ JotForm.paymentExtrasOnTheFly([null,null,null,{"name":"clickTo","qid":"3","text"
 
 
 
-      
+      <li class="form-line" data-type="control_button" id="id_9">
+        <div id="cid_9" class="form-input-wide">
+          <div style="text-align:center" class="form-buttons-wrapper">
+            <button id="input_9" type="submit" class="form-submit-button form-submit-button-light" data-component="button"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+              Crear Equipo
+            </font></font></button>
+          </div>
+        </div>
+      </li>
+      <li style="display:none">
+        Should be Empty:
+        <input type="text" name="website" value="">
       </li>
     </ul>
   </div>
@@ -329,10 +379,6 @@ JotForm.paymentExtrasOnTheFly([null,null,null,{"name":"clickTo","qid":"3","text"
   <script href="plugins/jquery/jquery.min.js"></script>
   <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
   <script href="plugins/jquery/jquery.min.js"></script>
-  </div>
-  </div>
-</body>
-</html>
 
 
 

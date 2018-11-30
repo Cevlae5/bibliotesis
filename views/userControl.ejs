@@ -146,80 +146,8 @@
       </div>
 
       <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          </li>
-           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <p>
-                Inicio
-                <i class="right fa fa-angle-left"></i>
-              </p>
-            </a>
-          </li>
 
-                    </li>
-           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <p>
-                Usuario
-                <i class="right fa fa-angle-left"></i>
-              </p>
-            </a>
-          </li>
-                    </li>
-           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <p>
-                Comisión
-                <i class="right fa fa-angle-left"></i>
-              </p>
-            </a>
-          </li>
-                    </li>
-           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <p>
-                Equipo
-                <i class="right fa fa-angle-left"></i>
-              </p>
-            </a>
-          </li>
-           </li>
-           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <p>
-                Evaluación
-                <i class="right fa fa-angle-left"></i>
-              </p>
-            </a>
-          </li>
-
-           </li>
-           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <p>
-                Configuración
-                <i class="right fa fa-angle-left"></i>
-              </p>
-            </a>
-          </li>
-           </li>
-           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <p>
-                Administración
-                <i class="right fa fa-angle-left"></i>
-              </p>
-            </a>
-          </li>
-
-
-
-        </ul>
-      </nav>
+      <% include panel %>
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
@@ -268,6 +196,7 @@
                     <th style="width: 30%" >Nombre</th>
                     <th>Rut</th>
                     <th>Correo</th>
+                    <th>Clave</th>
                     <th>Equipo</th>
                     <th>Comisión</th>
 
@@ -276,10 +205,11 @@
                   </tr>                                                       
                   <tr>
                         <form action="/users/replace" method="post"> 
-                        <td><input name="id" value="" placeholder = "id"></td>
+                        <td></td>
                         <td><input name="nombre" value="" placeholder="nombre completo"> <input name="apellido" value=""placeholder="apellido"></td>
                         <td><input name="rut" value="" placeholder="rut"></td>
                         <td><input name="correo" value="" placeholder="correo"></td>
+                        <td><input name="clave" type="password" value="" placeholder="clave"></td>
                         <td>Equipo xx </td>
                         <td>Comision xx</td>                        
   
@@ -334,6 +264,7 @@
                       <td><input name="nombre" value="<%=usuarios[i].nombre%> " placeholder="nombre completo"> <input name="apellido" value="<%=usuarios[i].apellido%>"placeholder="apellido"></td>
                       <td><input name="rut" value="<%=usuarios[i].rut%>" placeholder="rut"></td>
                       <td><input name="correo" value="<%=usuarios[i].correo%>" placeholder="correo"></td>
+                      <td><input name="clave" type="password" value="<%=usuarios[i].correo%>" placeholder="clave"></td>
                       <td>Equipo xx </td>
                       <td>Comision xx</td>                        
 

@@ -59,93 +59,10 @@
         </div>
       </div>
 
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat">
-                  <i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
-
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          </li>
-           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <p>
-                Inicio
-                <i class="right fa fa-angle-left"></i>
-              </p>
-            </a>
-          </li>
-
-                    </li>
-           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <p>
-                Usuario
-                <i class="right fa fa-angle-left"></i>
-              </p>
-            </a>
-          </li>
-                    </li>
-           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <p>
-                Comisión
-                <i class="right fa fa-angle-left"></i>
-              </p>
-            </a>
-          </li>
-                    </li>
-           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <p>
-                Equipo
-                <i class="right fa fa-angle-left"></i>
-              </p>
-            </a>
-          </li>
-           </li>
-           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <p>
-                Evaluación
-                <i class="right fa fa-angle-left"></i>
-              </p>
-            </a>
-          </li>
-
-           </li>
-           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <p>
-                Configuración
-                <i class="right fa fa-angle-left"></i>
-              </p>
-            </a>
-          </li>
-           </li>
-           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <p>
-                Administración
-                <i class="right fa fa-angle-left"></i>
-              </p>
-            </a>
-          </li>
 
 
-
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
+      <% include panel %>
+      
     </div>
     <!-- /.sidebar -->
   </aside>
@@ -201,14 +118,13 @@
                         <div class="card-body">
                           <!-- post text -->
 
-                            <p><%=tesis[i].descripcion%></p>
-
+                            <p><%=tesis[i].descripcion%></p>                            
 
                           <div class="attachment-block clearfix">
                             <img class="attachment-img" src="dist/img/photo1.png" alt="Attachment Image">
 
                             <div class="attachment-pushed">
-                              <h4 class="attachment-heading"><a href="http://www.lipsum.com/"><%=tesis[i].titulo%></a></h4>
+                              <h4 class="attachment-heading"><a href="http://localhost:4000/tesis/<%=tesis[i].idTesis%>"><%=tesis[i].titulo%></a></h4>
 
                               <div class="attachment-text">
                                 <br><a href="#">Seguir viendo</a>
